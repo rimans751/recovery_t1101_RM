@@ -187,7 +187,9 @@ TW_MAX_TORCH_BRIGHTNESS := 1
 TW_STATUS_ICONS_ALIGN := center
 TW_STATUSBAR_RIGHT_PADDING := 40
 TW_STATUSBAR_LEFT_PADDING := 40
-TW_THEME := landscape_hdpi
+# TW_THEME deliberately not set: TWRP auto-selects a portrait/landscape theme
+# from TARGET_SCREEN_WIDTH/HEIGHT. The explicit "landscape_hdpi" value is not
+# always present in OrangeFox 12.1 and aborts the build.
 TW_NO_SCREEN_BLANK := true
 TW_INCLUDE_FASTBOOTD := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
