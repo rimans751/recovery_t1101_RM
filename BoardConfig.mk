@@ -52,8 +52,8 @@ TARGET_BOARD_PLATFORM := mt6789
 BOARD_VENDOR_KERNEL_DTS := mt6789 mt8781
 
 # API level - Android 14 (SDK 34), 12.1 TWRP/OF branch compatibility
+# PRODUCT_SHIPPING_API_LEVEL is a product var (set in device.mk), not board-level.
 BOARD_SHIPPING_API_LEVEL := 32
-PRODUCT_SHIPPING_API_LEVEL := 32
 
 # Kernel - prebuilt DTB from original TECNO firmware boot.img (gf82f736)
 # The device is GKI/vendor_boot: the kernel lives in boot.img, not the
