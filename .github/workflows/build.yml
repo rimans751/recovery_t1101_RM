@@ -28,10 +28,22 @@ jobs:
       - name: Build Environment
         run: |
           sudo apt update
-          sudo apt install -y aria2
-          git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
-          cd scripts
-          sudo bash setup/android_build_env.sh
+          sudo apt install -y \
+            git curl wget aria2 lz4 zstd xz-utils \
+            gperf bison flex make \
+            gcc-multilib g++-multilib libc6-dev \
+            libxml2-utils xsltproc \
+            python3 python3-pip \
+            zip unzip rsync patchelf \
+            openjdk-11-jdk-headless
+          # Android `repo` tool (git-repo)
+          sudo curl -o /usr/local/bin/repo \
+            https://storage.googleapis.com/git-repo-downloads/repo 2>/dev/null || \
+          sudo curl -o /usr/local/bin/repo \
+            https://raw.githubusercontent.com/GerritCodeReview/git-repo/main/repo
+          sudo chmod +x /usr/local/bin/repo
+          java -version
+          repo --version
 
       - name: Set-up OrangeFox 12.1 source
         run: |
