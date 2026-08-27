@@ -105,7 +105,11 @@ BOARD_DTBOIMAGE_PARTITION_SIZE := 8388608          # dtbo.img
 # Super - logical dynamic partitions
 BOARD_SUPER_PARTITION_SIZE := 5370966752
 BOARD_SUPER_PARTITION_GROUPS := main
-BOARD_MAIN_PARTITION_LIST := system system_ext product vendor vendor_dlkm odm odm_dlkm tr_mi tr_theme tr_region tr_company tr_carrier tr_product tr_preload
+# Only use names the recovery build system recognizes. The stock firmware also
+# has Transsion-specific dynamic partitions (tr_mi tr_theme tr_region
+# tr_company tr_carrier tr_product tr_preload) but they are not required for a
+# recovery build and cause a "invalid partition name" error here.
+BOARD_MAIN_PARTITION_LIST := system system_ext product vendor vendor_dlkm odm odm_dlkm
 BOARD_MAIN_SIZE := 5363466240 # super - 7MiB
 
 BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_MAIN_PARTITION_LIST))
