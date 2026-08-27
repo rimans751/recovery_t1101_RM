@@ -1,0 +1,80 @@
+name: OrangeFox - Build koto (T1101)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build OrangeFox vendor_boot for koto
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout device tree
+        uses: actions/checkout@v4
+        with:
+          path: DEVICE_TREE
+
+      - name: Clean-up
+        uses: rokibhasansagar/slimhub_actions@main
+
+      - name: Swap Space
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 24
+
+      - name: Build Environment
+        run: |
+          sudo apt update
+          sudo apt install -y aria2
+          git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master
+          cd scripts
+          sudo bash setup/android_build_env.sh
+
+      - name: Set-up OrangeFox 12.1 source
+        run: |
+          mkdir -p OrangeFox
+          cd OrangeFox
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git clone https://gitlab.com/OrangeFox/sync.git -b master
+          cd sync
+          ./orangefox_sync.sh --branch 12.1 --path ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
+
+      - name: Install device tree
+        run: |
+          cd ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
+          mkdir -p device/tecno/koto
+          cp -a ${GITHUB_WORKSPACE}/DEVICE_TREE/. \
+             device/tecno/koto/ 2>/dev/null || true
+          rm -rf device/tecno/koto/.git device/tecno/koto/.github
+          ls -la device/tecno/koto/
+
+      - name: Building OrangeFox
+        run: |
+          cd ${GITHUB_WORKSPACE}/OrangeFox/fox_12.1
+          set +e
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          set -e
+          lunch twrp_koto-eng && make clean && mka adbd vendorbootimage
+
+      - name: Set Release Properties
+        run: |
+          echo "BUILD_DATE=$(TZ=Asia/Manila date +%Y%m%d)" >> $GITHUB_ENV
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            OrangeFox/fox_12.1/out/target/product/koto/OrangeFox*.img
+            OrangeFox/fox_12.1/out/target/product/koto/OrangeFox*.zip
+          name: OrangeFox Recovery koto // ${{ env.BUILD_DATE }}
+          tag_name: build-${{ github.run_id }}
+          body: |
+            ## OrangeFox Recovery Build - Unofficial
+            Device: TECNO MegaPad 11 (koto / T1101)
+            Build: fox_12.1
+            Target: vendor_boot
