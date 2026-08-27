@@ -1,0 +1,6 @@
+# Nothing to ignore by default - the kernel modules, prebuilt DTB and config
+# files are all required for the build and must be committed.
+# Add editor/OS noise here if desired.
+*.swp
+*~
+.DS_Store

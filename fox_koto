@@ -1,0 +1,32 @@
+#
+# Copyright (C) 2026 The OrangeFox Recovery Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# Maintainer and settings
+OF_MAINTAINER := T1101
+OF_FLASHLIGHT_ENABLE := 1
+OF_NO_REFLASH_CURRENT_ORANGEFOX := 1
+OF_NO_SPLASH_CHANGE := 1
+OF_FORCE_CASEFOLDING := 1
+
+# Recovery additional features
+OF_LOOP_DEVICE_ERRORS_TO_LOG := 1
+OF_ENABLE_LPTOOLS := 1
+OF_USE_LZ4_COMPRESSION := true
+OF_DISPLAY_FORMAT_FILESYSTEMS_DEBUG_INFO := 1
+
+# OTA
+OF_DISABLE_OTA_MENU := 1
+OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
+OF_SUPPORT_VBMETA_AVB2_PATCHING := 1
+
+# vendor_boot-as-recovery
+OF_VENDOR_BOOT_RECOVERY := 1
+
+# Force the prebuilt kernel (avoid "NO KERNEL CONFIG" error)
+OF_FORCE_PREBUILT_KERNEL := 1
+
+# Virtual A/B
+FOX_VIRTUAL_AB_DEVICE := 1
+FOX_AB_DEVICE := 1

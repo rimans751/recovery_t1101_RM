@@ -1,0 +1,79 @@
+# MediaTek ueventd - TECNO MegaPad 11 (T1101), MT6789
+# Change partition permissions
+# eMMC
+/dev/block/mmcblk0                               0660    root    system
+/dev/block/mmcblk0boot0                          0660    root    system
+/dev/block/mmcblk0boot1                          0660    root    system
+/dev/misc-sd                                     0660    root    system
+
+# UFS
+/dev/block/sda                                   0660    root    system
+/dev/block/sdb                                   0660    root    system
+/dev/block/sdc                                   0660    root    system
+
+# eMMC/UFS common
+/dev/block/by-name/misc2     0660    root    system
+/dev/block/by-name/boot      0640    root    system
+/dev/block/by-name/vendor_boot 0640 root  system
+/dev/block/by-name/boot_para 0640    root    system
+/dev/block/by-name/seccfg    0660    root    system
+/dev/block/by-name/proinfo   0660    root    system
+/dev/block/by-name/nvram     0660    root    system
+/dev/block/by-name/para      0660    root    system
+/dev/block/by-name/logo      0660    root    system
+/dev/block/by-name/frp       0660    root    system
+/dev/block/by-name/md1img    0640    root    system
+/dev/block/by-name/md1dsp    0660    root    system
+
+# OTP
+/dev/otp                  0660   system     system
+/dev/block/by-name/otp       0660    root    system
+
+# Connectivity
+/dev/stpwmt               0660   system     system
+/dev/wmtdetect            0660   system     system
+/dev/fw_log_wmt           0660   system     system
+/dev/conninfra_dev        0660   system     system
+/dev/conn_pwr_dev         0660   system     system
+
+# BT
+/dev/stpbt                0660   bluetooth  bluetooth
+/dev/fw_log_bt            0660   bluetooth  bluetooth
+
+# WIFI
+/dev/wmtWifi              0660   wifi     wifi
+/dev/fw_log_wifi          0660   wifi     wifi
+
+# FMRadio
+/dev/fm                   0660   media     media
+
+# Trustonic TEE
+/dev/mobicore             0600   system     system
+/dev/mobicore-user        0666   system     system
+/dev/t-base-tui           0666   system     system
+/dev/teeperf              0666   system     system
+
+# DRM
+/dev/dri/card0            0660   system     system
+
+# v4l2
+/dev/video*      0660 camera system
+/dev/media*      0660 camera system
+
+# USB
+/dev/bus/usb/*            0660   root       usb
+/dev/ttyUSB0              0660   radio      radio
+
+# Modem
+/dev/ccci*                0660   radio      radio
+/dev/emd*                 0660   radio      radio
+/sys/kernel/ccci          modem_info   0644   radio       radio
+
+# Mali
+/dev/mali0                0666   system     graphics
+/dev/ion                  0666   system     graphics
+/dev/dma_heap/mtk_mm      0444   system     system
+
+# Touch - critical for touchscreen access in recovery
+/dev/touch                0660   root       system
+/dev/hotknot              0660   root       system

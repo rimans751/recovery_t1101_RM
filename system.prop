@@ -1,0 +1,32 @@
+ro.secure=0
+ro.adb.secure=0
+ro.debuggable=1
+persist.sys.isUsbOtgEnabled=true
+ro.sys.usb.storage.type=mtp
+ro.vendor.mediatek.platform=MT6789
+
+# Fstab
+ro.postinstall.fstab.prefix=/system
+
+# USB MTP
+ro.sys.usb.storage.type=mtp
+
+# Crypto
+ro.crypto.volume.filenames_mode=aes-256-xts
+ro.crypto.volume.filenames_mode.aes-256-cts=aes-256-xts
+
+# Gatekeeper (Transsion/MTK)
+ro.hardware.gatekeeper=trustonic
+
+# HideReflashTWRP
+ro.twrp.vendor_boot=true
+
+# Device identity
+ro.product.brand=TECNO
+ro.product.manufacturer=TECNO
+ro.product.model=T1101
+ro.product.device=koto
+ro.product.name=miflower_global
+
+# Timezone
+persist.sys.timezone=UTC
